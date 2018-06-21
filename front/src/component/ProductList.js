@@ -1,23 +1,17 @@
 import React from 'react';
 import Product from '../component/Product';
 
-const ProductList = ({ products }) => {
-	return (
+const ProductList = ({ productList }) => {
+	return(
 		<div 
 			style={{display: 'flex', justifyContent: 'center', flexWrap:'wrap'}}
 			className='center'>
-			{products.map((product, i) => {
-			      return <Product 
-			      		code={product[i].code}
-			      		name={product[i].name}
-			      		price={product[i].price}
-			      		units={product[i].units}
-			      		discount={product[i].discount}
-				      />
-			  })
-			}
+			{productList.map((prod, i) => {
+	            return <Product product={prod} />
+	          })
+	          }
 		</div>
-	);
+		);
 }
 
 export default ProductList;

@@ -8,6 +8,7 @@ const register = require ('./controllers/register');
 const signin = require ('./controllers/signin');
 const profile = require ('./controllers/profile');
 const products = require ('./controllers/products');
+const cartupdate = require ('./controllers/cartupdate');
 
 var db = require('knex')({
   client: 'pg',
@@ -28,7 +29,8 @@ app.get('/', (req, res)=>{res.send('it is working')})
 app.post('/signin', signin.handleSignin(db,bcrypt))
 app.post('/register',register.handleRegister(db, bcrypt))
 app.get('/profile/:id', profile.handleProfile(db))
-app.get('/products', products.handleProfile(db))
+app.get('/products', products.handleProduct(db))
+app.put('/cartupdate', cartupdate.handleCartProduct(db))
 
 const PORT = process.env.PORT
 app.listen(PORT || 3000, ()=>{

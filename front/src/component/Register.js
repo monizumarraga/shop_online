@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from './cabify-300x300.jpg';
 
 class Register extends React.Component {
 	constructor(props){
@@ -48,6 +49,7 @@ class Register extends React.Component {
 	return (
 		<article className='br3 ba dark-gray b--black-10 mv4 w-200 w-100-m w-50-l mw6 shadow-10 center'>
 		<main className='pa4 black-80'>
+			<img style= {{paddingTop: '20px'}} src={logo} alt="logo" width='auto' heigth='150px' /> 
 		  <div className='measure'>
 		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
 		      <legend className='f1 fw6 ph0 mh0'>Register</legend>

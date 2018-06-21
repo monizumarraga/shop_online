@@ -3,6 +3,7 @@ import './App.css';
 import Navigation from '../component/Navigation';
 import Menu from '../component/Menu';
 import ProductList from '../component/ProductList';
+import Product from '../component/Product';
 import CartList from '../component/CartList';
 import Scroll from '../component/Scroll';
 import SignIn from '../component/SignIn';
@@ -21,7 +22,8 @@ const initialState= {
     money: '',
     joined: ''
   },
-  products: []
+  productList: {
+    }
 }
 class App extends Component {
   constructor (){
@@ -38,18 +40,21 @@ class App extends Component {
         cart: '',
         money: '',
         joined: ''
-      }
+      },
+      productList: {
+        }
     }
   }
 
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
-      code: data.code,
       name: data.name,
-      price: data.price,
-      units: data.units,
-      discount: data.discount
+      password: data.password,
+      email: data.email,
+      cart: data.cart,
+      money: data.money,
+      joined: data.joined
     }})
   }
 
@@ -62,9 +67,9 @@ class App extends Component {
     .then(response => response.json())
     .then(dbProducts => {
       if (dbProducts) {
-        this.setState({products: dbProducts})
+        this.setState({productList: dbProducts})
       } else {
-        alert("dbProducts")
+        alert(dbProducts)
       }
     })
   }
@@ -77,14 +82,15 @@ class App extends Component {
       this.setState({isSignedIn: true})
     }
     this.setState({route: route});
+    this.componentDidMount()
   }
 
   onMenuChange= (option) => {
-      this.setState({option: option})
+    this.setState({option: option})
+    this.componentDidMount()
   }
 
   render() {
-    const { productsList } = this.state.products
     return (
       <div className="App">
         <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
@@ -92,35 +98,30 @@ class App extends Component {
           ? (
             <div>
               <Menu onMenuChange={this.onMenuChange}/>
-                {this.state.option === 'shop'
-                  ? 
-                  (productsList.length
-                    ?
-                     <Scroll >
-                        <ProductList products={this.state.products}/>
-                      </ Scroll>
-                    :
-                      <h1>Loading</h1>
-                  )
-                  :
-                  (this.state.option === 'cart'
-                  ?
+              {this.state.option === 'shop'
+              ? 
                     <Scroll >
-                    <CartList />
+                      <ProductList productList={this.state.productList}/>
                     </ Scroll>
-                    :
-                    <Scroll >
+              :
+                (this.state.option === 'cart'
+                ?
+                  <Scroll >
+                    <CartList cartList={this.state.user["cart"]}/>
+                  </ Scroll>
+                :
+                  <Scroll >
                     <CartList />
-                    </ Scroll>
-                  )
-                  }
+                  </ Scroll>
+                )
+              }
             </div>
             )
-            :(
-              this.state.route === 'signin'
-                ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-                : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-            )
+          :(
+            this.state.route === 'signin'
+              ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+          )
         }
       </div>
     );

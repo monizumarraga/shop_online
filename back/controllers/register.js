@@ -1,17 +1,15 @@
 const handleRegister = (db, bcrypt) =>(req, res) =>  {
+	const num_charact=8;
 	const { email, name, password } = req.body;
 	const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (!emailRegex.test(email)) {
-    	console.log('incorrect email.')
     	return res.status(400).json('incorrect email');
     }
     if (!name) {
-    	console.log('incorrect name.')
 		return res.status(400).json('incorrect name')
 	}
-	if (password.length<8) {
-    	console.log('incorrect password length, at least 8 digits.')
-		return res.status(400).json('incorrect password length, at least 8 digits')
+	if (password.length<num_charact) {
+		return res.status(400).json(`incorrect password length, at least ${num_charact} digits`)
 	}
 	const hash = bcrypt.hashSync(password);
 	db.transaction(trx =>{

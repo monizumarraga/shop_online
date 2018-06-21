@@ -1,4 +1,4 @@
-const handleProfile = (db) => (req, res) => {
+const handleProduct = (db) => (req, res) => {
 	const { id } = req.params;
 	let found = false;
 	db.select('*').from('product')
@@ -13,5 +13,5 @@ const handleProfile = (db) => (req, res) => {
 }
 
 module.exports = {
-	handleProfile: handleProfile
+	handleProduct: handleProduct
 }
