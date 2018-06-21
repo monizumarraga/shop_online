@@ -1,0 +1,8 @@
+.Tilt {
+	width: 700px;
+	background-color:rgba(112, 127, 143, 1);
+	background-image: radial-gradient(closest-side, transparent 98%, rgba(203, 222, 241, 1) 99%),
+	radial-gradient(closest-side, transparent 98%, rgba(203, 222, 241, 1) 99%);
+	background-size:80px 80px;
+	background-position:0 0, 40px 40px;
+}
