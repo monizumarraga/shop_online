@@ -18,7 +18,7 @@ const initialState= {
     name: '',
     password: '',
     email: '',
-    cart: '',
+    cart: {},
     money: '',
     joined: ''
   },
@@ -37,7 +37,7 @@ class App extends Component {
         name: '',
         password: '',
         email: '',
-        cart: '',
+        cart: {},
         money: '',
         joined: ''
       },
@@ -47,12 +47,16 @@ class App extends Component {
   }
 
   loadUser = (data) => {
+    let cartInfo={}
+    if(data.cart){
+      cartInfo= JSON.parse(data.cart.replace(/[\\]/g,''))
+      }
     this.setState({user: {
       id: data.id,
       name: data.name,
       password: data.password,
       email: data.email,
-      cart: data.cart,
+      cart: cartInfo,
       money: data.money,
       joined: data.joined
     }})
@@ -90,6 +94,23 @@ class App extends Component {
     this.componentDidMount()
   }
 
+  onButtonBuy =(code, number) =>{
+    fetch('localhost:3000/cartupdate', {
+      method: 'put',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        id: this.state.user.id,
+        code: code,
+        number: number
+      })
+    })
+    .then(response => response.json())
+    .then(count => {
+      this.setState(Object.assign(this.state.user, { entries:count}))
+    })
+    this.setState({imageUrl: this.state.input})
+  }
+
   render() {
     return (
       <div className="App">
@@ -101,7 +122,10 @@ class App extends Component {
               {this.state.option === 'shop'
               ? 
                     <Scroll >
-                      <ProductList productList={this.state.productList}/>
+                      <ProductList 
+                        productList={this.state.productList} 
+                        userCart={this.state.user["cart"]}
+                        />
                     </ Scroll>
               :
                 (this.state.option === 'cart'

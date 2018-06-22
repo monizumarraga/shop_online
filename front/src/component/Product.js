@@ -1,7 +1,8 @@
 import React from 'react';
 
 
-const Product = ({product}) => {
+
+const Product = ({product, userCart}) => {
 	return (
 		<div 
 			style={{border:'3px solid grey'}}
@@ -20,7 +21,10 @@ const Product = ({product}) => {
 					onChange={this.onNumberChange}
 					id={"input"+product["code"]}
 					style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-					<h3>{product["units"]}units</h3>
+					{userCart[product["code"]]
+					?<h2>{userCart[product["code"]]} units</h2>
+					:<h2>0 units</h2>
+					}					
 					<input 
 						style ={{width:'50px', height:'25px'}}
 						className="center f7" 
@@ -33,6 +37,7 @@ const Product = ({product}) => {
 						className="f7 grow link dib grey bg-light-grey"
 						>Buy</button>
 				</div>
+					<h3>availability: {product["units"]}units</h3>
 					{product["discount"]===""
 					?<h3></h3>
 					:<h3>discount({product["discount"]})</h3>
