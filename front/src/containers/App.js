@@ -50,6 +50,7 @@ class App extends Component {
   }
 
   loadUser = (data) => {
+    alert("actualizar usuario")
     let cartInfo={}
     if(data.cart){
       cartInfo= JSON.parse(data.cart.replace(/[\\]/g,''))
@@ -63,6 +64,7 @@ class App extends Component {
       money: data.money,
       joined: data.joined
     }})
+    alert("actualizar precio")
     this.onPriceChange()
   }
 
@@ -130,6 +132,9 @@ class App extends Component {
                       <ProductList 
                         productList={this.state.productList} 
                         userCart={this.state.user["cart"]}
+                        user={this.state.user}
+                        loadUser={this.loadUser}
+                        onMenuChange={this.onMenuChange}
                         />
                     </ Scroll>
               :
@@ -138,7 +143,7 @@ class App extends Component {
                   <Scroll >
                     <CartList 
                       userCart={this.state.user["cart"]}
-                        productList={this.state.productList} 
+                      productList={this.state.productList} 
                       totalprice={this.state.price}                      
                       />
                   </ Scroll>
