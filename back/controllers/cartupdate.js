@@ -49,14 +49,14 @@ const handleCartProduct = (db)=> (req, res) => {
 							res.status(400).json('product not found')
 						}
 					})
-					.catch(err => res.status(400).json('error getting user'))
+					.catch(err => res.status(400).json('error getting product'))
 
 
 			} else {
 				res.status(400).json('user not found')
 			}
 		})
-		.catch(err => res.status(400).json('error getting user'))
+		.catch(err => res.status(400).json('error'))
 }
 
 module.exports = {

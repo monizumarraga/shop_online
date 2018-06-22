@@ -23,7 +23,8 @@ const initialState= {
     joined: ''
   },
   productList: {
-    }
+    },
+  price: 0
 }
 class App extends Component {
   constructor (){
@@ -42,7 +43,9 @@ class App extends Component {
         joined: ''
       },
       productList: {
-        }
+        },
+    price: 0,
+  price: 0
     }
   }
 
@@ -60,6 +63,7 @@ class App extends Component {
       money: data.money,
       joined: data.joined
     }})
+    this.onPriceChange()
   }
 
   componentDidMount(){
@@ -92,23 +96,24 @@ class App extends Component {
   onMenuChange= (option) => {
     this.setState({option: option})
     this.componentDidMount()
+    this.onPriceChange()
   }
 
-  onButtonBuy =(code, number) =>{
-    fetch('localhost:3000/cartupdate', {
-      method: 'put',
+
+  onPriceChange= () => {
+    fetch(`http://localhost:3000/totalprice/${this.state.user["id"]}`, {
+      method: 'get',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        id: this.state.user.id,
-        code: code,
-        number: number
-      })
+      body: JSON.stringify()
     })
     .then(response => response.json())
-    .then(count => {
-      this.setState(Object.assign(this.state.user, { entries:count}))
+    .then(price => {
+      if (price) {
+        this.setState({price: price})
+      } else {
+        alert(price)
+      }
     })
-    this.setState({imageUrl: this.state.input})
   }
 
   render() {
@@ -131,7 +136,11 @@ class App extends Component {
                 (this.state.option === 'cart'
                 ?
                   <Scroll >
-                    <CartList cartList={this.state.user["cart"]}/>
+                    <CartList 
+                      userCart={this.state.user["cart"]}
+                        productList={this.state.productList} 
+                      totalprice={this.state.price}                      
+                      />
                   </ Scroll>
                 :
                   <Scroll >
