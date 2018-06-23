@@ -1,5 +1,5 @@
 const handleCartProduct = (db)=> (req, res) => {
-	const { id, code, number } = req.body;
+	const { id, code, number, update } = req.body;
 	db.select('*').from('users').where({
 			'id': id
 		}).then (user => {
@@ -11,12 +11,20 @@ const handleCartProduct = (db)=> (req, res) => {
 							if (number <=product[0]["units"]){
 								let obj=[]
 								let trans=""
+								console.log(obj)
 								trans=user[0]["cart"]
 								trans=trans.replace(/[\\]/g,'')
 								if(trans){
 									obj=JSON.parse(trans)
 									if(obj[code]){
-										obj[code]=Math.floor(number) + Math.floor(obj[code])
+										if (update){
+											obj[code]=Math.floor(number)
+										}else{
+											obj[code]=Math.floor(number) + Math.floor(obj[code])
+										}
+									if(obj[code]===0){
+										delete obj[code]
+									}
 									}
 									else{
 										obj[code]= number								
@@ -25,7 +33,12 @@ const handleCartProduct = (db)=> (req, res) => {
 								}
 								else{
 									obj[code]= number
+									console.log(obj)
 								}
+								if (!obj){
+									obj=''
+								}
+								console.log(obj)
 								db('users')
 								.where('id', '=', id)
 									.update(
@@ -34,7 +47,11 @@ const handleCartProduct = (db)=> (req, res) => {
 									})
 									.then(cart => {
 										if (cart){
-											res.json(obj[code])
+											if (obj[code]){
+												res.json(obj[code])
+											}else{
+												res.json(0)
+											}
 										} else {
 										res.status(400).json('not found')
 									}

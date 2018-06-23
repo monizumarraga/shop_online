@@ -57,7 +57,7 @@ class Register extends React.Component {
 		        <label className='db fw6 lh-copy f6' htmlFor='name'>Name</label>
 		        <input 
 		        	onChange={this.onNameChange}
-		        	className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100' 
+		        	className="input-block-level"
 		        	type='text' 
 		        	name='name'  
 		        	id='name'
@@ -67,7 +67,7 @@ class Register extends React.Component {
 		        <label className='db fw6 lh-copy f6' htmlFor='email-address'>Email</label>
 		        <input 
 		        	onChange={this.onEmailChange}
-		        	className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100' 
+		        	className="input-block-level"
 		        	type='email' 
 		        	name='email-address' 
 		        	id='email-address'
@@ -77,7 +77,7 @@ class Register extends React.Component {
 		        <label className='db fw6 lh-copy f6' htmlFor='password'>Password</label>
 		        <input 
 		        	onChange={this.onPasswordChange}
-		        	className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100' 
+		        	className="input-block-level" 
 		        	type='password' 
 		        	name='password'  
 		        	id='password'

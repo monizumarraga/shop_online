@@ -1,6 +1,4 @@
 
-
-
 const handleProductprice = (db)=> (req, res) => {
 	let totalprice=0
 	const { code, number } = req.params;
@@ -10,7 +8,6 @@ const handleProductprice = (db)=> (req, res) => {
 	.then (product => {
 		console.log(product)
 	if (product.length){
-		console.log(product)
 		totalprice=product[0]['price'] * Math.floor(number)
 		res.json(totalprice)
 	}

@@ -1,32 +1,49 @@
 import React from 'react';
 import Cart from '../component/Cart';
 
-const CartList = ({ userCart, productList, totalprice }) => {
+const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuChange }) => {
 	return (
 		<div 
 			className='center' style={{flexDirection: 'column'}}>
 			{!Object.keys(userCart)[0]
 				?<h1>`No products listed in the cart`</h1>
 				:<div>
-					<div className='center' style={{justifyContent: 'flex-end', alignItems:'flex-end', flexDirection: 'column'}}>
+					<div>
 					{
 						Object.keys(userCart).map((prod,i)=>{
 							let productSel=productList.filter((product, i) => {
 								return product["code"]===prod
 					          })
-						return <Cart 
+						return <li
+									className='center' style={{justifyContent: 'flex-end', alignItems:'flex-end', flexDirection: 'column'}}
+									style={{listStyleType: 'none'}}
+									key={i.toString()}>
+								<Cart 
 				            		prod={prod}
 				            		units={userCart[prod]}
+				            		prodDesc={productSel[0]["name"]}
 				            		prodUnits={productSel[0]["units"]}
 				            		prodPrice={productSel[0]["price"]}
 				            		discPrice={productSel[0]["discount"]}
+									loadUser={loadUser}
+									user= {user}
 				            		/>
+				            	</li>
 						})
 					}
 				    </div>
-					<p className="center" style={{justifyContent: 'flex-end', alignItems:'flex-end'}}>
+					<div 
+						className="center" 
+						style={{justifyContent: 'flex-end', alignItems:'flex-end', flexDirection: 'column', margin:'20px'}}>
 						<h2>Total price {totalprice} €</h2>
-					</p>
+						<div className="form-actions">
+				            <button 
+				      			onClick={() => onMenuChange('Pay')}
+				            	type="submit" 
+				            	className="btn btn-primary"
+				            	>Pay</button>
+			          </div>
+			        </div>
 				</div>
 			}	
 		</div>

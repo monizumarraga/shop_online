@@ -4,7 +4,7 @@ class Product extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			number: 0,
+			number: '',
 			id: '',
 			code: '',
 			units:this.props.userCart[this.props.prod["code"]]
@@ -19,37 +19,45 @@ class Product extends React.Component {
   	}
 
   	onButtonBuy =() =>{ 
+  		let numb = Math.floor(this.state.number)
 	    if(this.state.id && this.state.code && this.state.number){  
-	    fetch('localhost:3000/cartupdate', {
+	   
+	    fetch('http://localhost:3000/cartupdate', {
 	    	method: 'put',
-	    	headers: {'Content-Type': 'application/json'},
+	    	credentials: 'include',
+            headers: {'Content-Type': 'application/json',
+			        'Accept': 'application/json',
+			    	'Access-Control-Allow-Origin': '*'	,
+			    	'Access-Control-Allow-Credentials': 'true',
+			    	'Content-Type': 'application/json' 
+			    	},
 	    	body: JSON.stringify({
 	        	id: this.state.id,
 	            code: this.state.code,
-	            number: this.state.number
+	            number: numb,
+	            update:false
 		      })
 		    })
-		    .then(response => response.json())
+			.then(response => response.json())
 		    .then(count => {
-		    	alert(count)
+		    	fetch(`http://localhost:3000/profile/${this.state.id}`, {
+			        method: 'get',
+			            headers: {'Content-Type': 'application/json'},
+			            body: JSON.stringify()
+				      })
+				      .then(response => response.json())
+				      .then(user => {
+				        if(user.id) {
+				        	this.props.loadUser(user);
+    						this.setState( {number: ''})
+    						
+				        	this.setState( {units: this.props.user["cart"][this.props.prod["code"]]})
+				        }
+				      })
 		      this.setState({ number: 0})
 		    })
-		    
 
-	        fetch(`http://localhost:3000/profile/${this.state.id}`, {
-	        method: 'get',
-	            headers: {'Content-Type': 'application/json'},
-	            body: JSON.stringify()
-		      })
-		      .then(response => response.json())
-		      .then(user => {
-		        if(user.id) {
-		        	alert("producto")
-		        	alert(user)
-		        	this.props.loadUser(user);
-		        	this.setState( {units: this.props.user["cart"][this.props.prod["code"]]})
-		        }
-		      })
+	        
 	    }
 	  }
 
@@ -77,7 +85,8 @@ class Product extends React.Component {
 					<input 
 						style ={{width:'50px', height:'25px'}}
 						className="center f7" 
-						type="tex" 						
+						type="tex" 	
+						value={this.state.number}					
 						onChange={this.onNumberChange}
 						/>
 					<button 

@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "react-tilt": "^0.1.4",
+    "stripe": "^6.1.1",
     "tachyons": "^4.10.0"
   },
   "scripts": {

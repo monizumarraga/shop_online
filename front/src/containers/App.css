@@ -27,6 +27,24 @@ justify-content:center;
   font-size: large;
 }
 
+.control {
+  margin: 10px;
+}
+.input-block-level{
+  padding: .5rem; 
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  border-style:solid;
+  border-width:1px ;
+  background-color:var(--transparent);
+  background-color:var(--black);
+  color:var(--white);
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-top: 0.5rem;
+  width: 60%;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

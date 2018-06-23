@@ -21,6 +21,14 @@ class SignIn extends React.Component {
 		this.setState( {signInPassword: event.target.value})
 	}
 
+	onCountChange = (event) =>{
+		this.setState( {max_attempts: event})
+	}
+
+	onValidChange = (event) =>{
+		this.setState( {password_correct: event})
+	}
+
 	onSubmitSignin = (event) =>{
 		console.log("sign in")
 			fetch('http://localhost:3000/signin', {
@@ -36,10 +44,10 @@ class SignIn extends React.Component {
 				if (user.id) {
 					this.props.loadUser(user);
 					this.props.onRouteChange('home');
-					this.setState({password_correct: true});
+					this.setState({password_correct: this.onValidChange(true)});
 				} else {
 					let numb_tries = this.state.max_attempts+1
-					this.setState({max_attempts: numb_tries});
+					this.setState({max_attempts: this.onCountChange(numb_tries)});
 					alert("credential don´t match")
 					if (this.state.max_attempts === 3){
 						alert("number of attempts exceed")
@@ -62,7 +70,7 @@ class SignIn extends React.Component {
 		        <label className='db fw6 lh-copy f6' htmlFor="email-address">Email</label>
 		        <input 
 		        	onChange={this.onEmailChange}
-		        	className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100' 
+		        	className="input-block-level"
 		        	type='email' 
 		        	name='email-address'  
 		        	id='email-address'
@@ -72,7 +80,7 @@ class SignIn extends React.Component {
 		        <label className='db fw6 lh-copy f6' htmlFor='password'>Password</label>
 		        <input 
 		        	onChange={this.onPasswordChange}
-		        	className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100' 
+		        	className="input-block-level"
 		        	type='password' 
 		        	name='password'  
 		        	id='password'

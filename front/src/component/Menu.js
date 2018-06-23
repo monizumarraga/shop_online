@@ -20,8 +20,8 @@ const Menu =({onMenuChange}) => {
 				onClick={() => onMenuChange('cart')}
 				className='f3 link dim black underline pa3 pointer'>Cart</p>
 			<p
-				onClick={() => onMenuChange('pay')}
-				className='f3 link dim black underline pa3 pointer'>Pay</p>
+				onClick={() => onMenuChange('user')}
+				className='f3 link dim black underline pa3 pointer'>User</p>
 			</div>
 		</div>
 		);

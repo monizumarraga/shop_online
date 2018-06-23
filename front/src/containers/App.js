@@ -8,6 +8,8 @@ import CartList from '../component/CartList';
 import Scroll from '../component/Scroll';
 import SignIn from '../component/SignIn';
 import Register from '../component/Register';
+import Pay from '../component/Pay';
+import User from '../component/User';
 
 const initialState= {
   option:'shop',
@@ -50,7 +52,6 @@ class App extends Component {
   }
 
   loadUser = (data) => {
-    alert("actualizar usuario")
     let cartInfo={}
     if(data.cart){
       cartInfo= JSON.parse(data.cart.replace(/[\\]/g,''))
@@ -64,11 +65,14 @@ class App extends Component {
       money: data.money,
       joined: data.joined
     }})
-    alert("actualizar precio")
     this.onPriceChange()
   }
 
   componentDidMount(){
+    this.onProductChange()
+  }
+
+  onProductChange(){
     fetch('http://localhost:3000/products', {
       method: 'get',
       headers: {'Content-Type': 'application/json'},
@@ -112,9 +116,7 @@ class App extends Component {
     .then(price => {
       if (price) {
         this.setState({price: price})
-      } else {
-        alert(price)
-      }
+      } 
     })
   }
 
@@ -134,7 +136,6 @@ class App extends Component {
                         userCart={this.state.user["cart"]}
                         user={this.state.user}
                         loadUser={this.loadUser}
-                        onMenuChange={this.onMenuChange}
                         />
                     </ Scroll>
               :
@@ -144,13 +145,23 @@ class App extends Component {
                     <CartList 
                       userCart={this.state.user["cart"]}
                       productList={this.state.productList} 
-                      totalprice={this.state.price}                      
+                      totalprice={this.state.price}
+                        user={this.state.user}
+                        loadUser={this.loadUser}   
+                        onMenuChange={this.onMenuChange}                 
                       />
                   </ Scroll>
                 :
-                  <Scroll >
-                    <CartList />
-                  </ Scroll>
+                  (this.state.option === 'user'
+                  ?
+                    <User 
+                      user={this.state.user}
+                      loadUser={this.loadUser}/>
+                  :
+                    <Scroll >
+                      <Pay onMenuChange={this.onMenuChange}/>
+                    </ Scroll>
+                  )
                 )
               }
             </div>

@@ -1,8 +1,10 @@
 const express = require('express');
+const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
 const knex = require('knex');
+const stripe = require('stripe')('sk_test_...');
 
 const register = require ('./controllers/register');
 const signin = require ('./controllers/signin');
@@ -22,9 +24,24 @@ var db = require('knex')({
   }
 });
 
-const app = express();
+
+stripe.customers.create(
+  { email: 'customer@example.com' },
+  function(err, customer) {
+    err; // null if no error occurred
+    customer; // the created customer object
+  }
+);
+
 app.use(bodyParser.json());
 app.use(cors());
+app.use(function(req, res, next) {
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header("Access-Control-Allow-Origin", "http://localhost:3006");
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   next();
+});
 
 app.get('/', (req, res)=>{res.send('it is working')})
 

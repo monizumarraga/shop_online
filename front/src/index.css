@@ -21,6 +21,15 @@ h2{
   line-height: 0.8em;
   margin: 1;
   outline-offset: 1;
+}
+
+
+h5{
+  font-size: 1em;
+  line-height: 0.1em;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  outline-offset: 0.2;
 
 }
 
