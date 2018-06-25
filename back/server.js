@@ -16,6 +16,9 @@ const totalprice = require ('./controllers/totalprice');
 const productprice = require ('./controllers/productprice');
 const change = require ('./controllers/change');
 const pay = require ('./controllers/pay');
+const userdelete = require ('./controllers/userdelete');
+const changepassword = require ('./controllers/changepassword');
+const cartdelete = require ('./controllers/cartdelete');
 
 var db = require('knex')({
   client: 'pg',
@@ -64,6 +67,9 @@ app.put('/cartupdate', cartupdate.handleCartProduct(db))
 app.get('/totalprice/:id', totalprice.handleTotalprice(db))
 app.get('/productprice/:code/:number', productprice.handleProductprice(db))
 app.put('/change', change.handleChange(db))
+app.delete('/userdelete', userdelete.handleUserDelete(db))
+app.put('/changepassword', changepassword.handleChangePsw(db, bcrypt))
+app.put('/cartdelete', cartdelete.handleCartDelete(db))
 
 app.put('/pay', pay.handlePay(db, connection))
 

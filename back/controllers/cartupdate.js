@@ -9,9 +9,8 @@ const handleCartProduct = (db)=> (req, res) => {
 					}).then (product => {
 						if (product.length){
 							if (number <=product[0]["units"]){
-								let obj=[]
+								let obj={}
 								let trans=""
-								console.log(obj)
 								trans=user[0]["cart"]
 								trans=trans.replace(/[\\]/g,'')
 								if(trans){
@@ -22,23 +21,20 @@ const handleCartProduct = (db)=> (req, res) => {
 										}else{
 											obj[code]=Math.floor(number) + Math.floor(obj[code])
 										}
-									if(obj[code]===0){
-										delete obj[code]
-									}
+										if(obj[code]===0){
+											delete obj[code]
+										}
 									}
 									else{
-										obj[code]= number								
+										obj[code]= Math.floor(number)								
 									}
-
 								}
 								else{
-									obj[code]= number
-									console.log(obj)
+									obj[code]= Math.floor(number)
 								}
 								if (!obj){
-									obj=''
+									obj={}
 								}
-								console.log(obj)
 								db('users')
 								.where('id', '=', id)
 									.update(

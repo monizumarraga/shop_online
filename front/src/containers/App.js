@@ -120,6 +120,23 @@ class App extends Component {
     })
   }
 
+  onDeleteCart = () => {
+    alert("delete")
+    alert(this.state.user["id"])
+    fetch(`http://localhost:3000/cartdelete`, {
+      method: 'put',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        id: this.state.user["id"]
+      })
+    })
+    .then(response => response.json())
+    .then(user => {
+        this.loadUser(user)
+        this.onMenuChange('shop')
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -148,7 +165,8 @@ class App extends Component {
                       totalprice={this.state.price}
                         user={this.state.user}
                         loadUser={this.loadUser}   
-                        onMenuChange={this.onMenuChange}                 
+                        onMenuChange={this.onMenuChange}    
+                        onDeleteCart={this.onDeleteCart}             
                       />
                   </ Scroll>
                 :
@@ -156,7 +174,9 @@ class App extends Component {
                   ?
                     <User 
                       user={this.state.user}
-                      loadUser={this.loadUser}/>
+                      loadUser={this.loadUser}
+                      onRouteChange={this.onRouteChange} 
+                      onMenuChange={this.onMenuChange}/>
                   :
                     <Scroll >
                       <Pay onMenuChange={this.onMenuChange}/>

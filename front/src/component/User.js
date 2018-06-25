@@ -17,7 +17,9 @@ class Register extends React.Component {
 	}
 
 	onPasswordChange = (event) =>{
+		if (event.target.value){
 		this.setState( {password: event.target.value})
+		}
 	}
 
 	onAddressChange = (event) =>{
@@ -67,6 +69,71 @@ class Register extends React.Component {
 		}
 	}
 
+
+	onPasswordUpdate = (event) =>{
+		let email=this.props.user["email"]
+		let password= this.state.password
+		let newpassword= this.state.new_password
+		if(password && newpassword){  
+			fetch('http://localhost:3000/changepassword', {
+				method: 'put',
+		    	credentials: 'include',
+	            headers: {'Content-Type': 'application/json',
+				        'Accept': 'application/json',
+				    	'Access-Control-Allow-Origin': '*'	,
+				    	'Access-Control-Allow-Credentials': 'true',
+				    	'Content-Type': 'application/json' 
+				    	},
+		    	body: JSON.stringify({
+					email: email,
+					password: password,
+					newpassword: newpassword
+				})
+			})
+			.then(response => response.json())
+		    .then(user => {
+				if (user.id) {
+					alert(user)
+					this.props.loadUser(user)
+					this.setState({ password: "" })
+					this.setState({ new_password: "" })
+				}else {
+					alert(user)
+				}
+			})
+		}
+		else{
+				alert("password cannot be empty")
+		}
+	}
+
+
+	onDelete = (event) =>{
+		let id=this.props.user["id"]
+			fetch('http://localhost:3000/userdelete', {
+				method: 'delete',
+		    	credentials: 'include',
+	            headers: {'Content-Type': 'application/json',
+				        'Accept': 'application/json',
+				    	'Access-Control-Allow-Origin': '*'	,
+				    	'Access-Control-Allow-Credentials': 'true',
+				    	'Content-Type': 'application/json' 
+				    	},
+		    	body: JSON.stringify({
+					id: id
+				})
+			})
+			.then(response => response.json())
+		    .then(user => {
+				if (user) {
+					this.props.onRouteChange('signout')
+					alert(user)
+				}else {
+					alert(user)
+				}
+			})
+	}
+
 	render(){
 	return (
 		<article className='br3 ba dark-gray b--black-10 mv4 w-300 w-150-m w-70.5-l mw6 shadow-10 center'>
@@ -76,7 +143,7 @@ class Register extends React.Component {
 			style={{backgroundColor:'rgba(203, 221, 240, 1)'}}>
 		      <legend className='f1 fw6 ph0 mh0'>User Information</legend>
 		       <div className='mt3'>
-		        <h2 className='db fw6 lh-copy f6' > Email: {this.state.email}</h2>
+		        <h2 className='db fw6 lh-copy f6' > Email: {this.props.user["email"]}</h2>
 		      </div>
 		      <div className='mt3'>
 		        <label className='db fw6 lh-copy f6' htmlFor='name'>Name</label>
@@ -92,7 +159,7 @@ class Register extends React.Component {
 		      <div className='mv3'>
 		        <label className='db fw6 lh-copy f6' htmlFor='address'>Address</label>
 		        <input 
-		        	onChange={this.onPasswordChange}
+		        	onChange={this.onAddressChange}
 		        	className="input-block-level" 
 		        	type='address' 
 		        	name='address'  
@@ -130,25 +197,40 @@ class Register extends React.Component {
 		      <div className='mv3'>
 		        <label className='db fw6 lh-copy f6' htmlFor='new_password'>New password</label>
 		        <input 
-		        	onChange={this.onPasswordChange}
+		        	onChange={this.onNewPasswordChange}
 		        	className="input-block-level" 
-		        	type='new_password' 
+		        	type='password' 
 		        	name='new_password'  
 		        	id='new_password'
 		        	/>
 		      </div>
 		    </fieldset>
+		    </div>
 		    <div className=''>
 		      <input 
-		      		onClick={this.onChange}
+		      		onClick={this.onPasswordUpdate}
 		      		className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib' 
 		      		style={{margin:'5px'}}
 		      		type='submit' 
 		      		value='Change'
 		      		/>
 		    </div>
-		    <div className='lh-copy mt3'>
+		  <div className='measure'>
+		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'
+			style={{backgroundColor:'rgba(203, 221, 240, 1)'}}>
+		      <legend className='f1 fw6 ph0 mh0'>User delete</legend>
+		      <h2 className='db fw6 lh-copy f6' > User {this.props.user["name"]} will be deleted</h2>
+		     </fieldset>
+		    <div className=''>
+		      <input 
+		      		onClick={this.onDelete}
+		      		className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib' 
+		      		style={{margin:'5px'}}
+		      		type='submit' 
+		      		value='Delete user'
+		      		/>
 		    </div>
+		    
 		  </div>
 		</main>
 		</article>

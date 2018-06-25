@@ -1,3 +1,5 @@
+
+
 const handleChangePsw = (db, bcrypt)=> (req, res) => {
 	const { email, password, newpassword } = req.body;
 	const num_charact=8;
@@ -7,21 +9,14 @@ const handleChangePsw = (db, bcrypt)=> (req, res) => {
 	db.select('email', 'hash').from('login')
 			.where('email', '=', email)
 			.then(data =>{
-			const isValid = bcrypt.compareSync(password, data[0].hash);
-			console.log(email)
-			if (user.length){
-			const hash = bcrypt.hashSync(newpassword);
-			console.log("llega")
+			const isValid = bcrypt.compareSync(password, data[0].hash)
 				if(isValid){
-
-	console.log(email)
-	console.log(password)
-	console.log(newpassword)
+			const hash1 = bcrypt.hashSync(newpassword);
 			    db('login')
 					.where('email', '=', email)
 						.update(
 							{
-							hash: hash
+							hash: hash1
 						})
 						.then(user => {
 							if (user){
@@ -34,9 +29,6 @@ const handleChangePsw = (db, bcrypt)=> (req, res) => {
 				}
 				else{
 					return res.status(400).json('credentials don´t match')
-				}
-			} else {
-				res.status(400).json('user not found')
 			}
 	})
 	.catch(err => res.status(400).json('error'))

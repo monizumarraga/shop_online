@@ -5,17 +5,19 @@ const handleUserDelete = (db) =>(req, res) =>  {
 		}).then (user => {
 			if (user.length){
 				let email=user[0]["email"]
-				console.log(email)
-				var sql = `DELETE FROM users WHERE id = ${id}`;
-				  bd.query(sql, function (err, result) {
-				    if (err) throw err;
-				    console.log("user deleted from users");
-				});
-				  var sql1 = `DELETE FROM login WHERE email = ${email}`;
-				  bd.query(sql1, function (err, result) {
-				    if (err) throw err;
-				    console.log("user deleted from login");
-				});
+				db.transaction(trx =>{
+				trx('users').where('email',email).del()
+				.then(loginEmail => {
+					return db('login').where('email',email).del()
+						.then(user => {
+							res.json("user deleted");
+						})
+				})
+				.then(trx.commit)
+				.catch(trx.rollback)
+			})
+			.then(resp => console.log('Transaction complete.'))
+			.catch(err => res.status(400).json('unable to register'))
 			} else {
 				res.status(400).json('not found')
 			}

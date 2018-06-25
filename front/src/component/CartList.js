@@ -1,7 +1,7 @@
 import React from 'react';
 import Cart from '../component/Cart';
 
-const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuChange }) => {
+const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuChange, onDeleteCart }) => {
 	return (
 		<div 
 			className='center' style={{flexDirection: 'column'}}>
@@ -40,8 +40,15 @@ const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuCha
 				            <button 
 				      			onClick={() => onMenuChange('Pay')}
 				            	type="submit" 
+				            	style={{margin:'10px'}}
 				            	className="btn btn-primary"
 				            	>Pay</button>
+				            <button 
+				      			onClick={() => onDeleteCart()}
+				            	type="submit" 
+				            	style={{margin:'10px'}}
+				            	className="btn btn-primary"
+				            	>Delete Cart</button>
 			          </div>
 			        </div>
 				</div>
