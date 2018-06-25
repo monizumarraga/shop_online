@@ -21,7 +21,7 @@ const initialState= {
     password: '',
     email: '',
     cart: {},
-    money: '',
+    address: '',
     joined: ''
   },
   productList: {
@@ -41,7 +41,7 @@ class App extends Component {
         password: '',
         email: '',
         cart: {},
-        money: '',
+        address: '',
         joined: ''
       },
       productList: {
@@ -62,7 +62,7 @@ class App extends Component {
       password: data.password,
       email: data.email,
       cart: cartInfo,
-      money: data.money,
+      address: data.address,
       joined: data.joined
     }})
     this.onPriceChange()

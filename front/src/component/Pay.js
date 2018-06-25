@@ -7,33 +7,34 @@ const Pay = ({onMenuChange}) => {
 		<div className='br3 ba dark-gray b--black-10 mv4 w-200 w-100-m w-50-l mw6 shadow-10 center'>
 
   <div >
-      <form class="form-horizontal span6">
-        <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
+      <form className="form-horizontal span6">
+        <fieldset id='sign_up' className='ba b--transparent ph0 mh0'
+      style={{backgroundColor:'rgba(203, 221, 240, 1)'}}>
        		<legend className='f1 fw6 ph0 mh0'>Credit Card Payment</legend>
 		    <div className='mt3'>
             <label className='db fw6 lh-copy f6'>Card Holder's Name</label>
-            <div class="controls">
+            <div className="controls">
               <input type="text" className="input-block-level" pattern="\w+ \w+.*" title="First and last name" required=""/>
             </div>
           </div>
        
           <div className='mt3'>
             <label className='db fw6 lh-copy f6'>Card Number</label>
-            <div class="controls">
-              <div class="center">
-                  	<input type="text" className="input-block-level" autocomplete="off" maxlength="4" pattern="\d{4}" title="First 4 digits" required=""/>
-                  	<input type="text" className="input-block-level" autocomplete="off" maxlength="4" pattern="\d{4}" title="Second 4 digits" required=""/>
-	              	<input type="text" className="input-block-level" autocomplete="off" maxlength="4" pattern="\d{4}" title="Third 4 digits" required=""/>
-                	<input type="text" className="input-block-level" autocomplete="off" maxlength="4" pattern="\d{4}" title="Fourth 4 digits" required=""/>
+            <div className="controls">
+              <div className="center">
+                  	<input type="text" className="input-block-level" autoComplete="off" maxLength="4" pattern="\d{4}" title="First 4 digits" required=""/>
+                  	<input type="text" className="input-block-level" autoComplete="off" maxLength="4" pattern="\d{4}" title="Second 4 digits" required=""/>
+	              	<input type="text" className="input-block-level" autoComplete="off" maxLength="4" pattern="\d{4}" title="Third 4 digits" required=""/>
+                	<input type="text" className="input-block-level" autoComplete="off" maxLength="4" pattern="\d{4}" title="Fourth 4 digits" required=""/>
               </div>
             </div>
           </div>
        
           <div className='mt3'>
             <label className='db fw6 lh-copy f6'>Card Expiry Date</label>
-            <div class="controls">
-              <div class="row-fluid">
-                <div class="span9">
+            <div className="controls">
+              <div className="row-fluid">
+                <div className="span9">
                   <select className="input-block-level" name="cc_exp_mo">
                     <option value="01">January</option>
                     <option value="02">February</option>
@@ -49,7 +50,7 @@ const Pay = ({onMenuChange}) => {
                     <option value="12">December</option>
                   </select>
                 </div>
-                <div class="span3">
+                <div className="span3">
                   <select className="input-block-level" name="cc_exp_yr">
                     <option>2018</option>
                     <option>2019</option>
@@ -65,28 +66,31 @@ const Pay = ({onMenuChange}) => {
               </div>
             </div>
           </div>
-       
           <div className='mt3'>
             <label className='db fw6 lh-copy f6'>Card CVV</label>
-            <div class="controls">
-              <div class="row-fluid">
-                <div class="span3">
-                  <input type="text" className="input-block-level" autocomplete="off" maxlength="3" pattern="\d{3}" title="Three digits on back of card" required=""/>
+            <div className="controls">
+              <div className="row-fluid">
+                <div className="span3">
+                  <input type="text" className="input-block-level" autoComplete="off" maxLength="3" pattern="\d{3}" title="Three digits on back of card" required=""/>
                 </div>
-                <div class="span8">                 
+                <div className="span8">                 
                 </div>
               </div>
             </div>
           </div>
+          </fieldset>
+      </form> 
           <div className='mt3'>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" 
+            className="btn btn-primary"
+              style={{margin:'5px'}}>Submit</button>
             <button 
       			onClick={() => onMenuChange('cart')}
-      			type="button" class="btn"
+      			type="button" className="btn"
       			>Cancel</button>
           </div>
-        </fieldset>
-      </form>
+        
+      
     </div>
 </div>
 	);

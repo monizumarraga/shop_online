@@ -64,17 +64,18 @@ class Product extends React.Component {
 	render(){
 	return (
 		<div 
-			style={{border:'3px solid grey'}}
 			className="tc dib br3 pa3 ma2 grow bw2 shadow-5"
 		style= {{width:'200px'}}>
-			<img style= {{paddingTop: '20px'}} 
+			<img style= {{margin:'10px', padding: '10px', backgroundColor:'white'}} 
 				src={require(`./${this.props.prod["code"]}.jpg`)}
 				alt={this.props.prod["name"]} width='auto' height='120px'/> 
 			<div>
-				<h3>{this.props.prod["code"]}</h3>
+				<div style={{border:'1px solid grey', borderRadius:'10px', padding: '1px', margin: '3px', backgroundColor: 'rgba(235, 242, 249, 1)'}}>
+				<h1>{this.props.prod["code"]}</h1>
 				<div style={{display: 'flex', justifyContent: 'space-around', alignItems:'flex-end'}}>
 					<h2>{this.props.prod["name"]}</h2>
 					<h2>{this.props.prod["price"]}€</h2>
+				</div>
 				</div>
 				<div className='center'
 					style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}>

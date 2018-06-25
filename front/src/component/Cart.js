@@ -91,24 +91,24 @@ class Cart extends React.Component {
 			className="tc dib br3 pa3 ma2 grow bw2 shadow-5"
 			style= {{width:'100%'}}>
 			<div className="center" style={{justifyContent: 'space-around', alignItems:'flex-end'}}>
-				<div className="center" style={{justifyContent: 'space-between', alignItems:'flex-end', width:'40%'}}>
-					<div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
+				<div className="center" style={{justifyContent: 'space-between', alignItems:'flex-end', width:'40%', border:'1px solid grey', borderRadius:'10px', padding: '1px', margin: '3px', backgroundColor: 'rgba(235, 242, 249, 1)'}}>
+					<div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column', margin:'5px'}}>
 						<h5>{this.props.prodDesc}</h5>
 						<h5>{this.props.prod}</h5>
 					</div>
-					<div className="center" style={{justifyContent: 'space-between', alignItems:'flex-end', width:'60%'}}>
+					<div className="center" style={{justifyContent: 'space-between', alignItems:'center', width:'60%', margin:'10px'}}>
 						<h3 style={{alignSelf: "flex-start"}}>{this.props.units}units</h3>
 						<h3 style={{alignSelf: "flex-end"}}>{this.state.total} €</h3>
 					</div>
 				</div>
 				<div className="center" style={{justifyContent: 'space-between', alignItems:'flex-end', width:'50%'}}>
 					<div style={{display: 'flex', justifyContent: 'center', alignItems:'center', flexDirection: 'column'}}>
-						<h4>price: {this.props.prodPrice} €</h4>
-						<h4>available units: {this.props.prodUnits}</h4>
+						<h3>price: {this.props.prodPrice} €</h3>
+						<h3>available units: {this.props.prodUnits}</h3>
 					</div>
 					{this.props.discPrice===""
 					?<h3></h3>
-					:<h4>discount({this.props.discPrice})</h4>
+					:<h3>discount({this.props.discPrice})</h3>
 					}
 					<div className='center'
 						style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}>

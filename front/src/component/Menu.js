@@ -1,6 +1,6 @@
 import React from 'react';
 import Tilt from 'react-tilt';
-import logo from './cabify-300x300.jpg';
+import logo from './logo.jpg';
 import './Menu.css';
 
 const Menu =({onMenuChange}) => {

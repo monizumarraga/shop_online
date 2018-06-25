@@ -28,7 +28,8 @@ justify-content:center;
 }
 
 .control {
-  margin: 10px;
+  margin: 20px;
+  padding: 10px;
 }
 .input-block-level{
   padding: .5rem; 

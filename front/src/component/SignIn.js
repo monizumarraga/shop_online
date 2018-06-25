@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './cabify-300x300.jpg';
+import logo from './logo.jpg';
 
 
 class SignIn extends React.Component {
@@ -64,7 +64,8 @@ class SignIn extends React.Component {
 		<main className='pa4 black-80'>
 			<img style= {{paddingTop: '20px'}} src={logo} alt="logo" width='auto' heigth='150px' /> 
 		  <div className='measure'>
-		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
+		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'
+			style={{backgroundColor:'rgba(203, 221, 240, 1)'}}>
 		      <legend className='f1 fw6 ph0 mh0'>Sign In</legend>
 		      <div className='mt3'>
 		        <label className='db fw6 lh-copy f6' htmlFor="email-address">Email</label>
@@ -91,6 +92,7 @@ class SignIn extends React.Component {
 		      <input 
 		      		onClick={this.onSubmitSignin}
 		      		className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib' 
+		      		style={{margin:'5px'}}
 		      		type='submit' 
 		      		value='Sign In'
 		      		/>
@@ -98,7 +100,8 @@ class SignIn extends React.Component {
 		    <div className='lh-copy mt3'>
 		      <p 
 		      		onClick={() => onRouteChange('register')}
-		      		className='f6 link dim black db pointer' >Register</p>
+		      		className='f6 link dim black db pointer' 
+		      		style={{margin:'5px'}}>Register</p>
 		    </div>
 		  </div>
 		</main>

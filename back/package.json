@@ -16,8 +16,10 @@
     "express": "^4.16.3",
     "install": "^0.11.0",
     "knex": "^0.14.6",
+    "mysql": "github:mysqljs/mysql",
     "nodemon": "^1.17.5",
     "pg": "^7.4.3",
+    "pg-db": "^2.0.0",
     "pg-promise": "^8.4.4",
     "stripe": "^6.1.1"
   }
