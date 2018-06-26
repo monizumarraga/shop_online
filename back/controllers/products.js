@@ -1,6 +1,4 @@
 const handleProduct = (db) => (req, res) => {
-	const { id } = req.params;
-	let found = false;
 	db.select('*').from('product')
 		.then (product => {
 			if (product.length){

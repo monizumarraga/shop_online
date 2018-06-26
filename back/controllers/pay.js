@@ -1,4 +1,4 @@
-const handlePay = (db, connection) =>(req, res) =>  {
+const handlePay = (db) =>(req, res) =>  {
 	const { id, totalprice } = req.body;
 	db.select('*').from('users').where({
 	'id': id
@@ -17,60 +17,48 @@ const handlePay = (db, connection) =>(req, res) =>  {
 				db.select('*').from('product')
 				.then (product => {
 					if (product.length){
-						product.map((elem)=>{
-							if(Math.floor(obj[elem["code"]]) > Math.floor(elem['units'])){
-								res.json(`there are not enough ${elem["code"]}`)
-							}
-							else{
-								if(obj[elem["code"]]){
-									let new_quantity=  	Math.floor(elem['units']) -Math.floor(obj[elem["code"]]) 
-									updateData.push({
-										code: elem['code'],
-										units: new_quantity
-									})
-									codeUpdate.push({
-										code:elem["code"]
-									})
-									unitUpdate.push({
-										units: new_quantity
-									})
-								}
-							}
-						})
-						let data=JSON.stringify(updateData)
-						console.log(data)
-						console.log("hasta aqui")
 						db.transaction(trx => {
-						console.log("hasta aqui 2")
-						trx.
-							where(codeUpdate)
-								.from('product')
-								.update(unitUpdate)
-							.then(user => {
-								db('users')
+							product.map((elem)=>{
+								if(Math.floor(obj[elem["code"]]) > Math.floor(elem['units'])){
+									res.status(400).json(`there are not enough ${elem["code"]}`)
+								}
+								else{
+									if(obj[elem["code"]]){
+										let new_quantity=  	Math.floor(elem['units']) - Math.floor(obj[elem["code"]]) 
+										db('product')
+											.where('code', '=', elem['code'])
+											.update(
+												{
+												units: new_quantity
+											})
+											.catch(err => res.status(400).json('unable to update product list'))
+									}
+								}
+							})	
+							return trx
 								.where('id', '=', id)
 								.update(
 									{
 									cart:''
 								})
+								.into('users')
 								.then(user => {
 									if (user){
 										res.json("payment succed")
 									} else {
 										res.status(400).json('not found')
 									}
-								})
+						})
+							
 								.catch(err => res.status(400).json('unable to update cart'))
 								.then(trx.commit)
 								.catch(trx.rollback);
 							})
 							.then(function(resp) {
-								console.log('Transaction complete.');
 							})
 						.catch(function(err) {
-							console.error(err);
+							res.status(400).json(err);
 						});
-					})
 					}
 					else {
 						res.status(400).json('no products found')

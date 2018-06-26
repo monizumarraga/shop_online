@@ -59,19 +59,18 @@ app.use(function(req, res, next) {
 app.get('/', (req, res)=>{res.send('it is working')})
 
 
-app.post('/signin', signin.handleSignin(db,bcrypt))
 app.post('/register',register.handleRegister(db, bcrypt))
+app.post('/signin', signin.handleSignin(db,bcrypt))
 app.get('/profile/:id', profile.handleProfile(db))
 app.get('/products', products.handleProduct(db))
 app.put('/cartupdate', cartupdate.handleCartProduct(db))
 app.get('/totalprice/:id', totalprice.handleTotalprice(db))
-app.get('/productprice/:code/:number', productprice.handleProductprice(db))
-app.put('/change', change.handleChange(db))
+app.get('/productprice/:code/:number',productprice.handleProductprice(db))
+app.put('/change/:id', change.handleChange(db))
+app.put('/pay', pay.handlePay(db))
 app.delete('/userdelete', userdelete.handleUserDelete(db))
 app.put('/changepassword', changepassword.handleChangePsw(db, bcrypt))
 app.put('/cartdelete', cartdelete.handleCartDelete(db))
-
-app.put('/pay', pay.handlePay(db, connection))
 
 const PORT = process.env.PORT
 app.listen(PORT || 3000, ()=>{

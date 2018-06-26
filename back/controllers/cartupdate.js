@@ -53,7 +53,6 @@ const handleCartProduct = (db)=> (req, res) => {
 									}
 									})
 								.catch(err => res.status(400).json('unable to update cart'))
-								
 							}
 								else{
 									res.status(400).json('product available units not enough')

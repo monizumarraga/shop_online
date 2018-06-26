@@ -1,8 +1,16 @@
 import React from 'react';
 
 
-const Pay = ({onMenuChange}) => {
+class Pay extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      year: new Date().getFullYear(),
+      years_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
+  }
 
+  render(){
 	return (
 		<div className='br3 ba dark-gray b--black-10 mv4 w-200 w-100-m w-50-l mw6 shadow-10 center'>
 
@@ -52,15 +60,10 @@ const Pay = ({onMenuChange}) => {
                 </div>
                 <div className="span3">
                   <select className="input-block-level" name="cc_exp_yr">
-                    <option>2018</option>
-                    <option>2019</option>
-                    <option>2020</option>
-                    <option>2021</option>
-                    <option>2022</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                    <option>2026</option>
-                    <option>2027</option>
+                    {this.state.years_list.map((num, i) => {
+                      return <option key={i.toString()}> {this.state.year + num}</option>
+                          })
+                          }
                   </select>
                 </div>
               </div>
@@ -82,10 +85,11 @@ const Pay = ({onMenuChange}) => {
       </form> 
           <div className='mt3'>
             <button type="submit" 
+            onClick={() => this.props.onPay()}
             className="btn btn-primary"
               style={{margin:'5px'}}>Submit</button>
             <button 
-      			onClick={() => onMenuChange('cart')}
+      			onClick={() => this.props.onMenuChange('cart')}
       			type="button" className="btn"
       			>Cancel</button>
           </div>
@@ -94,6 +98,7 @@ const Pay = ({onMenuChange}) => {
     </div>
 </div>
 	);
+}
 }
 
 export default Pay;

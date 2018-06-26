@@ -46,8 +46,7 @@ class App extends Component {
       },
       productList: {
         },
-    price: 0,
-  price: 0
+    price: 0
     }
   }
 
@@ -121,8 +120,6 @@ class App extends Component {
   }
 
   onDeleteCart = () => {
-    alert("delete")
-    alert(this.state.user["id"])
     fetch(`http://localhost:3000/cartdelete`, {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
@@ -134,6 +131,40 @@ class App extends Component {
     .then(user => {
         this.loadUser(user)
         this.onMenuChange('shop')
+    })
+  }
+
+  onProfileGet = ()  => {
+    fetch(`http://localhost:3000/profile/${this.state.user["id"]}`, {
+              method: 'get',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify()
+              })
+              .then(response => response.json())
+              .then(user => {
+                if(user.id) {
+                  this.props.loadUser(user);
+                }
+              })
+  }
+
+  onPay =() =>{
+    alert("pay")
+  fetch(`http://localhost:3000/pay`, {
+      method: 'put',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        id: this.state.user["id"],
+        totalprice: this.state.price
+      })
+    })
+    .then(response => response.json())
+    .then(user => {
+      alert("aqui")
+        this.onProfileGet()
+        this.onProductChange()
+        this.onMenuChange('shop')
+        alert(user)
     })
   }
 
@@ -179,7 +210,9 @@ class App extends Component {
                       onMenuChange={this.onMenuChange}/>
                   :
                     <Scroll >
-                      <Pay onMenuChange={this.onMenuChange}/>
+                      <Pay 
+                        onMenuChange={this.onMenuChange}
+                        onPay={this.onPay}/>
                     </ Scroll>
                   )
                 )

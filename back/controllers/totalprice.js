@@ -18,8 +18,10 @@ const handleTotalprice = (db)=> (req, res) => {
 						if (product.length){
 							product.map((elem)=>{
 								if(obj[elem["code"]]){
-									totalprice=totalprice + elem['price'] * Math.floor(obj[elem["code"]])
-								}
+									
+										totalprice=totalprice + elem['price'] * Math.floor(obj[elem["code"]])
+									}
+								
 							})
 							res.json(totalprice)
 						}
