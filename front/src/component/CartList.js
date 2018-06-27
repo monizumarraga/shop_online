@@ -15,9 +15,11 @@ const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuCha
 								return product["code"]===prod
 					          })
 						return <li
-									className='center' style={{justifyContent: 'flex-end', alignItems:'flex-end', flexDirection: 'column'}}
-									style={{listStyleType: 'none', border:'1px solid grey', borderRadius:'10px', padding: '5px', margin:'10px', backgroundColor:'rgba(203, 221, 240, 1)'}}
+									style={{listStyleType: 'none'}}
 									key={i.toString()}>
+								<div 
+									className='center' style={{justifyContent: 'flex-end', alignItems:'flex-end', flexDirection: 'column', border:'1px solid grey', borderRadius:'10px', padding: '5px', margin:'10px', backgroundColor:'rgba(203, 221, 240, 1)'}}
+									>
 								<Cart 
 				            		prod={prod}
 				            		units={userCart[prod]}
@@ -28,6 +30,7 @@ const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuCha
 									loadUser={loadUser}
 									user= {user}
 				            		/>
+				            	</div>
 				            	</li>
 						})
 					}

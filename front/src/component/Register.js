@@ -48,7 +48,7 @@ class Register extends React.Component {
 	render(){
 	return (
 		<article className='br3 ba dark-gray b--black-10 mv4 w-200 w-100-m w-50-l mw6 shadow-10 center'>
-		<main className='pa4 black-80'>
+		<div className='pa4 black-80'>
 			<img style= {{paddingTop: '20px'}} src={logo} alt="logo" width='auto' heigth='150px' /> 
 		  <div className='measure'>
 		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'
@@ -97,7 +97,7 @@ class Register extends React.Component {
 		    <div className='lh-copy mt3'>
 		    </div>
 		  </div>
-		</main>
+		</div>
 		</article>
 		);
 	}

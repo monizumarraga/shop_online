@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.jpg';
 
 class Register extends React.Component {
 	constructor(props){
@@ -41,8 +40,7 @@ class Register extends React.Component {
 	            headers: {'Content-Type': 'application/json',
 				        'Accept': 'application/json',
 				    	'Access-Control-Allow-Origin': '*'	,
-				    	'Access-Control-Allow-Credentials': 'true',
-				    	'Content-Type': 'application/json' 
+				    	'Access-Control-Allow-Credentials': 'true'
 				    	},
 		    	body: JSON.stringify({
 					id: id,
@@ -81,8 +79,7 @@ class Register extends React.Component {
 	            headers: {'Content-Type': 'application/json',
 				        'Accept': 'application/json',
 				    	'Access-Control-Allow-Origin': '*'	,
-				    	'Access-Control-Allow-Credentials': 'true',
-				    	'Content-Type': 'application/json' 
+				    	'Access-Control-Allow-Credentials': 'true'
 				    	},
 		    	body: JSON.stringify({
 					email: email,
@@ -116,8 +113,7 @@ class Register extends React.Component {
 	            headers: {'Content-Type': 'application/json',
 				        'Accept': 'application/json',
 				    	'Access-Control-Allow-Origin': '*'	,
-				    	'Access-Control-Allow-Credentials': 'true',
-				    	'Content-Type': 'application/json' 
+				    	'Access-Control-Allow-Credentials': 'true'
 				    	},
 		    	body: JSON.stringify({
 					id: id
@@ -137,10 +133,10 @@ class Register extends React.Component {
 	render(){
 	return (
 		<article className='br3 ba dark-gray b--black-10 mv4 w-300 w-150-m w-70.5-l mw6 shadow-10 center'>
-		<main className='pa4 black-80'>
+		<div className='pa4 black-80'>
 		  <div className='measure'>
 		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'
-			style={{backgroundColor:'rgba(203, 221, 240, 1)'}}>
+				style={{backgroundColor:'rgba(203, 221, 240, 1)'}}>
 		      <legend className='f1 fw6 ph0 mh0'>User Information</legend>
 		       <div className='mt3'>
 		        <h2 className='db fw6 lh-copy f6' > Email: {this.props.user["email"]}</h2>
@@ -232,7 +228,7 @@ class Register extends React.Component {
 		    </div>
 		    
 		  </div>
-		</main>
+		</div>
 		</article>
 		);
 	}

@@ -61,7 +61,7 @@ class SignIn extends React.Component {
 	const { onRouteChange } = this.props;
 	return (
 		<article className='br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center'>
-		<main className='pa4 black-80'>
+		<div className='pa4 black-80'>
 			<img style= {{paddingTop: '20px'}} src={logo} alt="logo" width='auto' heigth='150px' /> 
 		  <div className='measure'>
 		    <fieldset id='sign_up' className='ba b--transparent ph0 mh0'
@@ -104,7 +104,7 @@ class SignIn extends React.Component {
 		      		style={{margin:'5px'}}>Register</p>
 		    </div>
 		  </div>
-		</main>
+		</div>
 		</article>
 		);
 	}

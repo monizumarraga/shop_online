@@ -53,8 +53,7 @@ class Cart extends React.Component {
             headers: {'Content-Type': 'application/json',
 			        'Accept': 'application/json',
 			    	'Access-Control-Allow-Origin': '*'	,
-			    	'Access-Control-Allow-Credentials': 'true',
-			    	'Content-Type': 'application/json' 
+			    	'Access-Control-Allow-Credentials': 'true'
 			    	},
 	    	body: JSON.stringify({
 	        	id: this.state.id,
@@ -107,7 +106,7 @@ class Cart extends React.Component {
 						<h3>available units: {this.props.prodUnits}</h3>
 					</div>
 					{this.props.discPrice===""
-					?<h3></h3>
+					?<h3>(No discount)</h3>
 					:<h3>discount({this.props.discPrice})</h3>
 					}
 					<div className='center'

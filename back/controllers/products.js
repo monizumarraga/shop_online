@@ -1,5 +1,5 @@
 const handleProduct = (db) => (req, res) => {
-	db.select('*').from('product')
+	db.select('*').from('product').orderBy('code')
 		.then (product => {
 			if (product.length){
 				res.json(product)

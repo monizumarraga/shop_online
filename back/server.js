@@ -19,6 +19,11 @@ const pay = require ('./controllers/pay');
 const userdelete = require ('./controllers/userdelete');
 const changepassword = require ('./controllers/changepassword');
 const cartdelete = require ('./controllers/cartdelete');
+const discounts = require ('./controllers/discounts');
+const productupdate = require('./controllers/productupdate');
+const productdelete= require('./controllers/productdelete');
+const productnew= require('./controllers/productnew');
+const discountnew= require('./controllers/discountnew');
 
 var db = require('knex')({
   client: 'pg',
@@ -33,7 +38,7 @@ var db = require('knex')({
 var connection = mysql.createConnection({
     host : '127.0.0.1',
     user : 'postgres',
-    password : 'Monica.301184',
+    password : 'postgres',
     database : 'shop'
 });
 
@@ -58,7 +63,6 @@ app.use(function(req, res, next) {
 
 app.get('/', (req, res)=>{res.send('it is working')})
 
-
 app.post('/register',register.handleRegister(db, bcrypt))
 app.post('/signin', signin.handleSignin(db,bcrypt))
 app.get('/profile/:id', profile.handleProfile(db))
@@ -71,6 +75,12 @@ app.put('/pay', pay.handlePay(db))
 app.delete('/userdelete', userdelete.handleUserDelete(db))
 app.put('/changepassword', changepassword.handleChangePsw(db, bcrypt))
 app.put('/cartdelete', cartdelete.handleCartDelete(db))
+app.get('/discounts', discounts.handleDiscountName(db))
+app.post('/productnew',productnew.handleProductNew(db))
+app.delete('/productdelete', productdelete.handleProductDelete(db))
+app.put('/productupdate', productupdate.handleProductUpdate(db))
+app.post('/productnew', productnew.handleProductNew(db))
+app.post('/discountnew', discountnew.handleDiscountNew(db))
 
 const PORT = process.env.PORT
 app.listen(PORT || 3000, ()=>{

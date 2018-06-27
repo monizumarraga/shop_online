@@ -28,8 +28,7 @@ class Product extends React.Component {
             headers: {'Content-Type': 'application/json',
 			        'Accept': 'application/json',
 			    	'Access-Control-Allow-Origin': '*'	,
-			    	'Access-Control-Allow-Credentials': 'true',
-			    	'Content-Type': 'application/json' 
+			    	'Access-Control-Allow-Credentials': 'true'
 			    	},
 	    	body: JSON.stringify({
 	        	id: this.state.id,
@@ -50,7 +49,6 @@ class Product extends React.Component {
 				        if(user.id) {
 				        	this.props.loadUser(user);
     						this.setState( {number: ''})
-    						
 				        	this.setState( {units: this.props.user["cart"][this.props.prod["code"]]})
 				        }
 				      })
@@ -98,7 +96,7 @@ class Product extends React.Component {
 				</div>
 					<h3>availability: {this.props.prod["units"]}units</h3>
 					{this.props.prod["discount"]===""
-					?<h3></h3>
+					?<h3>(No discount)</h3>
 					:<h3>discount({this.props.prod["discount"]})</h3>
 					}
 			</div>
