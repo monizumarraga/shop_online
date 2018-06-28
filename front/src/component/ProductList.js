@@ -2,7 +2,7 @@ import React from 'react';
 import Product from '../component/Product';
 import ProductUpdate from '../component/ProductUpdate';
 
-const ProductList = ({ productList, userCart, user, loadUser,onMenuChange, onProductChange, discountListName, onDiscountList }) => {
+const ProductList = ({ productList, userCart, user, loadUser,onMenuChange, discountListName }) => {
 	return(
 		<div 
 			style={{display: 'flex', justifyContent: 'center', flexWrap:'wrap'}}
@@ -15,9 +15,7 @@ const ProductList = ({ productList, userCart, user, loadUser,onMenuChange, onPro
 							<ProductUpdate 
 								prod={prod}
 								onMenuChange={onMenuChange}
-								onProductChange={onProductChange}
 								discountListName={discountListName}
-								onDiscountList={onDiscountList}
 								/>
 								</div>
 							</li>

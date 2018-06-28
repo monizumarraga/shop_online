@@ -7,7 +7,17 @@ class Product extends React.Component {
 			number: '',
 			id: '',
 			code: '',
-			units:this.props.userCart[this.props.prod["code"]]
+			units:''
+		}
+	}
+	componentDidMount= () =>{
+		this.setState({units:this.props.userCart[this.props.prod["code"]]})
+		try {
+			const img= require(`./${this.props.prod["code"]}.jpg`)
+			this.setState( {image: img})
+		} catch (ex) {
+			const img= require(`./not_found.jpg`)
+		    this.setState( {image: img})
 		}
 	}
 
@@ -65,7 +75,7 @@ class Product extends React.Component {
 			className="tc dib br3 pa3 ma2 grow bw2 shadow-5"
 		style= {{width:'200px'}}>
 			<img style= {{margin:'10px', padding: '10px', backgroundColor:'white'}} 
-				src={require(`./${this.props.prod["code"]}.jpg`)}
+				src={this.state.image}
 				alt={this.props.prod["name"]} width='auto' height='120px'/> 
 			<div>
 				<div style={{border:'1px solid grey', borderRadius:'10px', padding: '1px', margin: '3px', backgroundColor: 'rgba(235, 242, 249, 1)'}}>
@@ -94,7 +104,10 @@ class Product extends React.Component {
 						className="f7 grow link dib grey bg-light-grey"
 						>Buy</button>
 				</div>
-					<h3>availability: {this.props.prod["units"]}units</h3>
+					{this.props.prod["units"]===0
+					?<h3 style={{color:'red'}}>Out of stock</h3>
+					:<h3>availability: {this.props.prod["units"]}units</h3>
+					}
 					{this.props.prod["discount"]===""
 					?<h3>(No discount)</h3>
 					:<h3>discount({this.props.prod["discount"]})</h3>

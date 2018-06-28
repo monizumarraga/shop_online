@@ -31,7 +31,8 @@ const initialState= {
   price: 0,
   discountList: {
       },
-  discountListName: []
+  discountListName: [],
+  cartPrice:{}
 }
 class App extends Component {
   constructor (){
@@ -53,7 +54,8 @@ class App extends Component {
         },
     price: 0,
     discountList: {
-        }
+        },
+    cartPrice:{}
     }
   }
 
@@ -71,7 +73,6 @@ class App extends Component {
       address: data.address,
       joined: data.joined
     }})
-    this.onPriceChange()
   }
 
   componentDidMount= () =>{
@@ -83,8 +84,6 @@ class App extends Component {
   onDiscountList =()=> {
     let list=[]
     this.setState({discountList: []})
-    console.log("onDiscountList")
-    console.log(this.state.discountList)
       fetch('http://localhost:3000/discounts', {
         method: 'get',
         headers: {'Content-Type': 'application/json'},
@@ -93,22 +92,17 @@ class App extends Component {
       .then(response => response.json())
       .then(dbDiscounts => {
         if (dbDiscounts) {
-          console.log("cambio discount")
           this.setState({discountList: dbDiscounts})
           let obj =Object.keys(dbDiscounts).map((discount,i)=>{
             list.push(dbDiscounts[i]["name"])
             return dbDiscounts[i]["name"]
           })
           list.push("")
-          this.setState({discountListName: list})
-          console.log("actualizado")
-          console.log(this.state.discountList)          
+          this.setState({discountListName: list})  
         } else {
           alert(dbDiscounts)
         }
       })    
-    console.log("onDiscountList final")
-    console.log(this.state.discountList)
   }
 
   onProductChange = () =>{
@@ -139,27 +133,22 @@ class App extends Component {
   }
 
   onMenuChange= (option) => {
-    console.log("menu")
-    console.log(this.state.discountList)
     this.componentDidMount()
-    this.onPriceChange()
     this.onDiscountList()
     this.setState({option: option})
-    console.log("cambio")
   }
 
-  onPriceChange= () => {
-    fetch(`http://localhost:3000/totalprice/${this.state.user["id"]}`, {
-      method: 'get',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify()
-    })
-    .then(response => response.json())
-    .then(price => {
-      if (price) {
-        this.setState({price: price})
-      } 
-    })
+  onCartPrice = (code, price) => {
+    let obj={}
+    obj=this.state.cartPrice
+    obj[code]=price
+    let totalprice =Object.keys(obj).reduce(function (prev, key) {
+        return prev + obj[key];
+    }, 0);
+    console.log(obj)
+    console.log(totalprice)
+    this.setState({price: totalprice})
+    this.setState({cartPrice:obj})
   }
 
   onDeleteCart = () => {
@@ -174,6 +163,8 @@ class App extends Component {
     .then(user => {
         this.loadUser(user)
         this.onMenuChange('shop')
+        this.setState({cartPrice:{}})
+        this.setState({price: 0})
     })
   }
 
@@ -238,9 +229,7 @@ class App extends Component {
                         user={this.state.user}
                         loadUser={this.loadUser}
                         onMenuChange={this.onMenuChange}    
-                        onProductChange={this.onProductChange}
                         discountListName={this.state.discountListName}
-                        onDiscountList={this.onDiscountList}
                         />
                   </div>) 
               :(this.state.option === 'New_product'
@@ -278,9 +267,7 @@ class App extends Component {
                           onMenuChange={this.onMenuChange}    
                           loadUser={this.loadUser}
                           onMenuChange={this.onMenuChange}    
-                          onProductChange={this.onProductChange}
                           discountListName={this.state.discountListName}
-                        onDiscountList={this.onDiscountList}
                           />
                     :
                       (this.state.option === 'cart'
@@ -292,7 +279,8 @@ class App extends Component {
                             user={this.state.user}
                             loadUser={this.loadUser}   
                             onMenuChange={this.onMenuChange}    
-                            onDeleteCart={this.onDeleteCart}             
+                            onDeleteCart={this.onDeleteCart}  
+                            onCartPrice={this.onCartPrice}           
                           />
                       :
                         (this.state.option === 'user'

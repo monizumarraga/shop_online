@@ -37,7 +37,7 @@ const handleProductprice = (db)=> (req, res) => {
 				}
 				if(isDiscount===true){
 					if (discount[0]["percentage"]){
-						price=price*Math.floor(discount[0]["percentage"])/100
+						price=price*(100-Math.floor(discount[0]["percentage"]))/100
 					}
 					if(discount[0]["newprice"]){
 						price= Math.floor(discount[0]["newprice"])

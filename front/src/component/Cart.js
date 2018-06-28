@@ -6,10 +6,17 @@ class Cart extends React.Component {
 		this.state = {
 			number: '',
 			id: '',
-			code: this.props.prod,
-			units:this.props.units,
+			code: '',
+			units:'',
 			total:''
 		}
+		this.onPriceChange()
+	}
+
+	componentDidMount= () =>{
+		this.setState({code: this.props.prod})
+		this.setState({units: this.props.units})
+		this.props.onCartPrice(this.props.prod, this.state.total)
 		this.onPriceChange()
 	}
 
@@ -23,13 +30,14 @@ class Cart extends React.Component {
 
 	onPriceChange= () =>{
   		let numb=0
+  		let code= this.props.prod
   		if (this.state.number){
   			numb = Math.floor(this.state.number)
   		}else{
   			numb=this.props.units
   		}
-	    if(this.state.code && numb){
-	    fetch(`http://localhost:3000/productprice/${this.state.code}/${numb}`, {
+	    if(code && numb){
+	    fetch(`http://localhost:3000/productprice/${code}/${numb}`, {
 	      method: 'get',
 	      headers: {'Content-Type': 'application/json'},
 	      body: JSON.stringify()
@@ -38,13 +46,15 @@ class Cart extends React.Component {
 	    .then(price => {
 	      if (price) {
 	        this.setState({total: price})
+	        this.props.onCartPrice(this.props.prod, price)
 	      } 
 	    })
 		}
 	}
 
 
-  	onButtonBuy =() =>{ 
+  	onButtonUpdate =() =>{ 
+  		let code= this.state.code
   		let numb = Math.floor(this.state.number)
 	    if(this.state.id && this.state.code && this.state.number){  
 	   	    fetch('http://localhost:3000/cartupdate', {
@@ -74,8 +84,12 @@ class Cart extends React.Component {
 				        if(user.id) {
 				        	this.props.loadUser(user);
     						this.setState( {number: ''})
-    						
 				        	this.setState( {units: this.props.user["cart"][this.props.prod["code"]]})
+				        	if (numb===0){
+	        				this.props.onCartPrice(code, numb)
+				        	}else{
+	        				this.props.onCartPrice(code, this.state.total)
+	        				}
 				        }
 				      })
 		      this.setState({ number: 0})
@@ -119,7 +133,7 @@ class Cart extends React.Component {
 						onChange={this.onNumberChange}
 						/>
 					<button 
-		      			onClick={() => this.onButtonBuy()}
+		      			onClick={() => this.onButtonUpdate()}
 						style ={{width:'60px', height:'25px'}}
 						className="f7 grow link dib grey bg-light-grey"
 						>Update</button>

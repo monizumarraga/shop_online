@@ -4,10 +4,24 @@ class ProductUpdate extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			units:this.props.prod["units"],
+			units:'',
 			number: '',
-			price: this.props.prod["price"],
-			discount: this.props.prod["discount"]
+			price: '',
+			discount: '',
+			image:''
+		}
+	}
+	componentDidMount= () =>{
+		this.setState({units:this.props.prod["units"]})
+		this.setState({price:this.props.prod["price"]})
+		this.setState({discount:this.props.prod["discount"]})
+		try {
+			const img= require(`./${this.props.prod["code"]}.jpg`)
+			this.setState( {image: img})
+		    // do stuff
+		} catch (ex) {
+			const img= require(`./not_found.jpg`)
+		    this.setState( {image: img})
 		}
 	}
 
@@ -79,8 +93,9 @@ class ProductUpdate extends React.Component {
 			className="tc dib br3 pa3 ma2 grow bw2 shadow-5"
 		style= {{width:'200px'}}>
 			<img style= {{margin:'10px', padding: '10px', backgroundColor:'white'}} 
-				src={require(`./${this.props.prod["code"]}.jpg`)}
-				alt={this.props.prod["code"]} width='auto' height='120px'/> 
+				src={this.state.image}
+				alt={'this.props.prod["code"]'} 
+				width='auto' height='120px'/> 
 			<div>
 				<div style={{border:'1px solid grey', borderRadius:'10px', padding: '1px', margin: '3px', backgroundColor: 'rgba(235, 242, 249, 1)'}}>
 				<h1>{this.props.prod["code"]}</h1>

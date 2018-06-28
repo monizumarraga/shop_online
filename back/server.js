@@ -10,7 +10,6 @@ const signin = require ('./controllers/signin');
 const profile = require ('./controllers/profile');
 const products = require ('./controllers/products');
 const cartupdate = require ('./controllers/cartupdate');
-const totalprice = require ('./controllers/totalprice');
 const productprice = require ('./controllers/productprice');
 const change = require ('./controllers/change');
 const pay = require ('./controllers/pay');
@@ -55,7 +54,6 @@ app.post('/signin', signin.handleSignin(db,bcrypt))
 app.get('/profile/:id', profile.handleProfile(db))
 app.get('/products', products.handleProduct(db))
 app.put('/cartupdate', cartupdate.handleCartProduct(db))
-app.get('/totalprice/:id', totalprice.handleTotalprice(db))
 app.get('/productprice/:code/:number',productprice.handleProductprice(db))
 app.put('/change/:id', change.handleChange(db))
 app.put('/pay', pay.handlePay(db))

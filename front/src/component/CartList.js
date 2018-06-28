@@ -1,7 +1,7 @@
 import React from 'react';
 import Cart from '../component/Cart';
 
-const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuChange, onDeleteCart }) => {
+const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuChange, onDeleteCart,onCartPrice }) => {
 	return (
 		<div 
 			className='center' style={{flexDirection: 'column'}}>
@@ -29,6 +29,7 @@ const CartList = ({ userCart, productList, totalprice, user, loadUser, onMenuCha
 				            		discPrice={productSel[0]["discount"]}
 									loadUser={loadUser}
 									user= {user}
+									onCartPrice={onCartPrice}
 				            		/>
 				            	</div>
 				            	</li>
