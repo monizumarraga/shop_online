@@ -4,10 +4,10 @@ class DiscountUpdate extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			name:this.props.discount["name"],
-			typeUnits:'Minimum quantity',
+			name:'',
+			typeUnits:'',
 			units:'',
-			typeDiscount:'Percentage',
+			typeDiscount:'',
 			discount:''
 		}
 	}

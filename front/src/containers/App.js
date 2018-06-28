@@ -79,9 +79,10 @@ class App extends Component {
     this.onDiscountList()
     }
 
+
   onDiscountList =()=> {
     let list=[]
-    this.setState({discountListName: []})
+    this.setState({discountList: []})
     console.log("onDiscountList")
     console.log(this.state.discountList)
       fetch('http://localhost:3000/discounts', {
