@@ -22,7 +22,6 @@ const handleProductprice = (db)=> (req, res) => {
 				if(discount[0]["round_unit"]){
 					let round_unit=Math.floor(discount[0]["round_unit"])
 					if(units >= round_unit){
-						console.log("si aplica")
 						isDiscount=true
 						if(round_unit){
 								let divid= units % round_unit

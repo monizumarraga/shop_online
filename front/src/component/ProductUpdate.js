@@ -9,7 +9,6 @@ class ProductUpdate extends React.Component {
 			price: this.props.prod["price"],
 			discount: this.props.prod["discount"]
 		}
-		this.props.onDiscountList()
 	}
 
 	onNumberChange = (event) =>{
@@ -121,8 +120,8 @@ class ProductUpdate extends React.Component {
 	                    name="discount">
 	                    {this.props.discountListName
 	                    	?(
-	                    	Object.keys(this.props.discountListName).map((discount,i)=>{
-	                    		return <option key={i}>{this.props.discountListName[i]}</option>
+	                    	(this.props.discountListName).map((discount,i)=>{
+	                    		return <option key={this.props.discountListName[i] + i.toString}>{this.props.discountListName[i]}</option>
 	                    	})
 	                    	)
                           	:(

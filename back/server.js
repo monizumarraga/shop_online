@@ -4,8 +4,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const knex = require('knex');
-const stripe = require('stripe')('sk_test_...');
-var mysql = require('mysql');
 
 const register = require ('./controllers/register');
 const signin = require ('./controllers/signin');
@@ -24,31 +22,20 @@ const productupdate = require('./controllers/productupdate');
 const productdelete= require('./controllers/productdelete');
 const productnew= require('./controllers/productnew');
 const discountnew= require('./controllers/discountnew');
+const discountupdate= require('./controllers/discountupdate');
+const discountdelete= require('./controllers/discountdelete');
 
-var db = require('knex')({
-  client: 'pg',
-  connection: {
+var connection= {
     host : '127.0.0.1',
     user : 'postgres',
     password : 'Monica.301184',
     database : 'shop'
   }
-});
 
-var connection = mysql.createConnection({
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'postgres',
-    database : 'shop'
+var db = require('knex')({
+  client: 'pg',
+  connection: connection
 });
-
-stripe.customers.create(
-  { email: 'customer@example.com' },
-  function(err, customer) {
-    err; // null if no error occurred
-    customer; // the created customer object
-  }
-);
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -81,6 +68,8 @@ app.delete('/productdelete', productdelete.handleProductDelete(db))
 app.put('/productupdate', productupdate.handleProductUpdate(db))
 app.post('/productnew', productnew.handleProductNew(db))
 app.post('/discountnew', discountnew.handleDiscountNew(db))
+app.put('/discountupdate', discountupdate.handleDiscountUpdate(db))
+app.delete('/discountdelete', discountdelete.handleDiscountDelete(db))
 
 const PORT = process.env.PORT
 app.listen(PORT || 3000, ()=>{

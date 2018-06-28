@@ -75,7 +75,6 @@ class DiscountNew extends React.Component {
 		  		this.setState({round_unit:''})   
 		  		this.setState({percentage:''})   
 		  		this.setState({newprice:''})  
-		    	this.props.onDiscountList()
 		    	this.props.onMenuChange('New_discount')
 		    })
 	  }

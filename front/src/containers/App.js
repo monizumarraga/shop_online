@@ -31,8 +31,7 @@ const initialState= {
   price: 0,
   discountList: {
       },
-  discountListName: {
-      }
+  discountListName: []
 }
 class App extends Component {
   constructor (){
@@ -81,7 +80,10 @@ class App extends Component {
     }
 
   onDiscountList =()=> {
-    let list
+    let list=[]
+    this.setState({discountListName: []})
+    console.log("onDiscountList")
+    console.log(this.state.discountList)
       fetch('http://localhost:3000/discounts', {
         method: 'get',
         headers: {'Content-Type': 'application/json'},
@@ -90,16 +92,22 @@ class App extends Component {
       .then(response => response.json())
       .then(dbDiscounts => {
         if (dbDiscounts) {
+          console.log("cambio discount")
           this.setState({discountList: dbDiscounts})
-          list=dbDiscounts.map((discount,i)=>{
+          let obj =Object.keys(dbDiscounts).map((discount,i)=>{
+            list.push(dbDiscounts[i]["name"])
             return dbDiscounts[i]["name"]
           })
-          list.push({})
+          list.push("")
           this.setState({discountListName: list})
+          console.log("actualizado")
+          console.log(this.state.discountList)          
         } else {
           alert(dbDiscounts)
         }
       })    
+    console.log("onDiscountList final")
+    console.log(this.state.discountList)
   }
 
   onProductChange = () =>{
@@ -127,14 +135,16 @@ class App extends Component {
     }
     this.setState({route: route});
     this.componentDidMount()
-    this.onDiscountList()
   }
 
   onMenuChange= (option) => {
-    this.setState({option: option})
+    console.log("menu")
+    console.log(this.state.discountList)
     this.componentDidMount()
     this.onPriceChange()
     this.onDiscountList()
+    this.setState({option: option})
+    console.log("cambio")
   }
 
   onPriceChange= () => {
@@ -221,7 +231,6 @@ class App extends Component {
             user={this.state.user}/>
             {this.state.option === 'Update_products'
               ?(<div>
-                    <Scroll >
                       <ProductList 
                         productList={this.state.productList} 
                         userCart=""
@@ -232,7 +241,6 @@ class App extends Component {
                         discountListName={this.state.discountListName}
                         onDiscountList={this.onDiscountList}
                         />
-                    </ Scroll>
                   </div>) 
               :(this.state.option === 'New_product'
               ?(<div>
@@ -244,25 +252,24 @@ class App extends Component {
                       />
                 </div>) 
               :this.state.option === 'Update_discount'
-              ? (<Scroll >
+              ? (
                       <DiscountList 
                         onMenuChange={this.onMenuChange}    
                         discountList={this.state.discountList}
                         onDiscountList={this.onDiscountList}
                         />
-                    </ Scroll>
               )
               :(this.state.option === 'New_discount'
                 ? (<div>
                     <DiscountNew
                         onMenuChange={this.onMenuChange}
+                        onDiscountList={this.onDiscountList}
                         />
                   </div>)
                 : (
                   <div>
                     {this.state.option === 'shop'
                     ? 
-                      <Scroll >
                         <ProductList 
                           productList={this.state.productList} 
                           userCart={this.state.user["cart"]}
@@ -274,11 +281,9 @@ class App extends Component {
                           discountListName={this.state.discountListName}
                         onDiscountList={this.onDiscountList}
                           />
-                      </ Scroll>
                     :
                       (this.state.option === 'cart'
                       ?
-                        <Scroll >
                           <CartList 
                             userCart={this.state.user["cart"]}
                             productList={this.state.productList} 
@@ -288,7 +293,6 @@ class App extends Component {
                             onMenuChange={this.onMenuChange}    
                             onDeleteCart={this.onDeleteCart}             
                           />
-                        </ Scroll>
                       :
                         (this.state.option === 'user'
                           ?
